@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+
 public class World {
     public static void main(String[] args) {
         System.out.println("system wystartował");
@@ -16,11 +18,11 @@ public class World {
                 case "b" -> dir[i] = Direction.BACKWARD;
                 case "r" -> dir[i] = Direction.RIGHT;
                 case "l" -> dir[i] = Direction.LEFT;
-                // do poprawy
+                default -> i--;
             }
             i++;
         }
-        return dir;
+        return Arrays.copyOfRange(dir,0, i);
     }
 
     private static void run(Direction[] temp) {
