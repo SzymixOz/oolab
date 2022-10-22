@@ -4,18 +4,25 @@ import java.util.Arrays;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("system wystartował");
-        run(change(args));
-        System.out.println("system zakończył działanie");
+//        System.out.println("system wystartował");
+//        run(change(args));
+//        System.out.println("system zakończył działanie");
+//
+//        Vector2d position1 = new Vector2d(1, 2);
+//        System.out.println(position1);
+//        Vector2d position2 = new Vector2d(-2, 1);
+//        System.out.println(position2);
+//        System.out.println(position1.add(position2));
+//
+//        System.out.println(MapDirection.EAST.previous());
 
-        Vector2d position1 = new Vector2d(1, 2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2, 1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-
-        System.out.println(MapDirection.EAST.previous());
-
+        Animal zwierze = new Animal();
+        System.out.println(zwierze);
+        OptionsParser directions = new OptionsParser();
+        for (MoveDirection direct : directions.parse(args)) {
+            zwierze.move(direct);
+        }
+        System.out.println(zwierze);
     }
 
     private static Direction[] change(String[] args) {
@@ -31,7 +38,7 @@ public class World {
             }
             i++;
         }
-        return Arrays.copyOfRange(dir,0, i);
+        return Arrays.copyOfRange(dir, 0, i);
     }
 
     private static void run(Direction[] temp) {
