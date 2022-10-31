@@ -16,13 +16,19 @@ public class World {
 //
 //        System.out.println(MapDirection.EAST.previous());
 
-        Animal zwierze = new Animal();
-        System.out.println(zwierze);
-        OptionsParser directions = new OptionsParser();
-        for (MoveDirection direct : directions.parse(args)) {
-            zwierze.move(direct);
-        }
-        System.out.println(zwierze);
+//        Animal zwierze = new Animal();
+//        System.out.println(zwierze);
+//        OptionsParser directions = new OptionsParser();
+//        for (MoveDirection direct : directions.parse(args)) {
+//            zwierze.move(direct);
+//        }
+//        System.out.println(zwierze);
+
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
     }
 
     private static Direction[] change(String[] args) {
