@@ -23,7 +23,8 @@ public class SimulationEngine implements IEngine {
         placeAnimals();
         int i = 0;
         while (i < moves.length) {
-            for (Animal animal : ((RectangularMap) map).getAnimals()) {
+//            for (Animal animal : ((RectangularMap) map).getAnimals()) {
+            for (Animal animal : ((GrassField) map).getAnimals()) {
                 if (i == moves.length) {
                     break;
                 }

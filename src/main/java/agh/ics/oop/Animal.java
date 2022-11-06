@@ -11,6 +11,7 @@ public class Animal {
     }
 
     public Animal(IWorldMap map) {
+        this.map = map;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
