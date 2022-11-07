@@ -18,7 +18,12 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position);
+        for (Animal animal : animals) {
+            if (animal.isAt(position)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
