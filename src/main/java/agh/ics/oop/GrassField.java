@@ -1,15 +1,13 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GrassField extends AbstractWorldMap {
     private int amount;
     private final int maxGrassXY;
 //    private final Vector2d grassUpperRight;
-    protected List<Grass> grasses = new ArrayList<>();
-
+//    protected List<Grass> grassesList = new ArrayList<>();
+    protected Map<Vector2d, Grass> grasses = new HashMap<Vector2d, Grass>();
 
     public GrassField(int amount) {
         this.amount = amount;
@@ -19,7 +17,7 @@ public class GrassField extends AbstractWorldMap {
     }
 
     public List<Grass> getGrasses() {
-        return grasses;
+        return grasses.values().stream().toList();
     }
 
     public void placeGrasses() {
@@ -29,19 +27,14 @@ public class GrassField extends AbstractWorldMap {
             int randY = Math.abs(rand.nextInt(maxGrassXY));
             Vector2d grassPosition = new Vector2d(randX, randY);
             if (!isOccupied(grassPosition)) {
-                grasses.add(new Grass(grassPosition));
+                grasses.put(grassPosition, new Grass(grassPosition));
             }
         }
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Grass grass : grasses) {
-            if (grass.getPosition().equals(position)) {
-                return true;
-            }
-        }
-        return super.isOccupied(position);
+        return grasses.containsKey(position) || super.isOccupied(position);
     }
 
     @Override
@@ -50,21 +43,16 @@ public class GrassField extends AbstractWorldMap {
         if (object != null) {
             return object;
         }
-        for (Grass grass : grasses) {
-            if (grass.getPosition().equals(position)) {
-                return grass;
-            }
-        }
-        return null;
+        return grasses.get(position);
     }
 
     @Override
     public Vector2d getLowerLeft() {
         lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for (Animal animal : animals) {
+        for (Animal animal : getAnimals()) {
             lowerLeft = lowerLeft.lowerLeft(animal.getPosition());
         }
-        for (Grass grass : grasses) {
+        for (Grass grass : getGrasses()) {
             lowerLeft = lowerLeft.lowerLeft(grass.getPosition());
         }
         return lowerLeft;
@@ -73,10 +61,10 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public Vector2d getUpperRight() {
         upperRight = new Vector2d(0, 0);
-        for (Animal animal : animals) {
+        for (Animal animal : getAnimals()) {
             upperRight = upperRight.upperRight(animal.getPosition());
         }
-        for (Grass grass : grasses) {
+        for (Grass grass : getGrasses()) {
             upperRight = upperRight.upperRight(grass.getPosition());
         }
         return upperRight;

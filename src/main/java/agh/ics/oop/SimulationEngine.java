@@ -14,7 +14,9 @@ public class SimulationEngine implements IEngine {
 
     public void placeAnimals() {
         for (Vector2d startPosition : startPositions) {
-            map.place(new Animal(map, startPosition));
+            Animal animal = new Animal(map, startPosition);
+            animal.addObserver((IPositionChangeObserver) map);
+            map.place(animal);
         }
     }
 
@@ -24,7 +26,8 @@ public class SimulationEngine implements IEngine {
         int i = 0;
         while (i < moves.length) {
 //            for (Animal animal : ((RectangularMap) map).getAnimals()) {
-            for (Animal animal : ((GrassField) map).getAnimals()) {
+//            for (Animal animal : ((GrassField) map).getAnimals()) {
+            for (Animal animal : ((AbstractWorldMap) map).getAnimals()) {
                 if (i == moves.length) {
                     break;
                 }
