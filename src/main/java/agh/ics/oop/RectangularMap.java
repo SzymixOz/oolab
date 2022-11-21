@@ -18,15 +18,15 @@ public class RectangularMap extends AbstractWorldMap {
         return animals;
     }
 
-    @Override
-    public Vector2d getLowerLeft() {
-        return lowerLeft;
-    }
-
-    @Override
-    public Vector2d getUpperRight() {
-        return upperRight;
-    }
+//    @Override
+//    public Vector2d getLowerLeft() {
+//        return lowerLeft;
+//    }
+//
+//    @Override
+//    public Vector2d getUpperRight() {
+//        return upperRight;
+//    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {

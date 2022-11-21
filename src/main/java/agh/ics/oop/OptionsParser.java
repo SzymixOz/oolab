@@ -1,7 +1,6 @@
 package agh.ics.oop;
 
 import java.util.Arrays;
-
 public class OptionsParser {
     public MoveDirection[] parse(String[] table) {
         MoveDirection[] result = new MoveDirection[table.length];
@@ -19,7 +18,9 @@ public class OptionsParser {
             } else if (direction.equals("l") || direction.equals("left")) {
                 result[i] = MoveDirection.LEFT;
                 i++;
-            } else {}
+            } else {
+                throw new IllegalArgumentException(direction + " is not legal move specification");
+            }
         }
         return Arrays.copyOfRange(result, 0, i);
     }

@@ -5,7 +5,7 @@ import java.util.*;
 public class GrassField extends AbstractWorldMap {
     private int amount;
     private final int maxGrassXY;
-//    private final Vector2d grassUpperRight;
+    //    private final Vector2d grassUpperRight;
 //    protected List<Grass> grassesList = new ArrayList<>();
     protected Map<Vector2d, Grass> grasses = new HashMap<Vector2d, Grass>();
 
@@ -27,7 +27,9 @@ public class GrassField extends AbstractWorldMap {
             int randY = Math.abs(rand.nextInt(maxGrassXY));
             Vector2d grassPosition = new Vector2d(randX, randY);
             if (!isOccupied(grassPosition)) {
-                grasses.put(grassPosition, new Grass(grassPosition));
+                Grass gr = new Grass(grassPosition);
+                grasses.put(gr.getPosition(), gr);
+                mapBoundary.put(gr);
             }
         }
     }
@@ -46,31 +48,27 @@ public class GrassField extends AbstractWorldMap {
         return grasses.get(position);
     }
 
-    @Override
-    public Vector2d getLowerLeft() {
-        lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for (Animal animal : getAnimals()) {
-            lowerLeft = lowerLeft.lowerLeft(animal.getPosition());
-        }
-        for (Grass grass : getGrasses()) {
-            lowerLeft = lowerLeft.lowerLeft(grass.getPosition());
-        }
-        return lowerLeft;
-    }
-
-    @Override
-    public Vector2d getUpperRight() {
-        upperRight = new Vector2d(0, 0);
-        for (Animal animal : getAnimals()) {
-            upperRight = upperRight.upperRight(animal.getPosition());
-        }
-        for (Grass grass : getGrasses()) {
-            upperRight = upperRight.upperRight(grass.getPosition());
-        }
-        return upperRight;
-    }
-
-//    public String toString() {
-//        return new MapVisualizer(this).draw(lowerLeft, upperRight);
+//    @Override
+//    public Vector2d getLowerLeft() {
+//        lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+//        for (Animal animal : getAnimals()) {
+//            lowerLeft = lowerLeft.lowerLeft(animal.getPosition());
+//        }
+//        for (Grass grass : getGrasses()) {
+//            lowerLeft = lowerLeft.lowerLeft(grass.getPosition());
+//        }
+//        return lowerLeft;
+//    }
+//
+//    @Override
+//    public Vector2d getUpperRight() {
+//        upperRight = new Vector2d(0, 0);
+//        for (Animal animal : getAnimals()) {
+//            upperRight = upperRight.upperRight(animal.getPosition());
+//        }
+//        for (Grass grass : getGrasses()) {
+//            upperRight = upperRight.upperRight(grass.getPosition());
+//        }
+//        return upperRight;
 //    }
 }
