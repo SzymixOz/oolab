@@ -48,7 +48,7 @@ public class GrassField extends AbstractWorldMap {
         return grasses.get(position);
     }
 
-//    @Override
+    //    @Override
 //    public Vector2d getLowerLeft() {
 //        lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
 //        for (Animal animal : getAnimals()) {

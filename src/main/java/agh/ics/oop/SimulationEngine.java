@@ -1,15 +1,29 @@
 package agh.ics.oop;
 
-public class SimulationEngine implements IEngine {
+import agh.ics.oop.gui.App;
+import javafx.application.Platform;
+
+import java.io.FileNotFoundException;
+
+public class SimulationEngine implements IEngine, Runnable {
 
     private MoveDirection[] moves;
     private IWorldMap map;
     private Vector2d[] startPositions;
+        private App observer;
+        private int moveDelay = 300;
 
     public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] startPositions) {
         this.moves = moves;
         this.map = map;
         this.startPositions = startPositions;
+    }
+
+    public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] startPositions, App observer) {
+        this.moves = moves;
+        this.map = map;
+        this.startPositions = startPositions;
+        this.observer = observer;
     }
 
     public void placeAnimals() {
@@ -34,6 +48,16 @@ public class SimulationEngine implements IEngine {
                 animal.move(moves[i]);
                 i++;
             }
+//            Platform.runLater(() -> {
+//                try {
+//                    observer.renderMap();
+//                    Thread.sleep(moveDelay);
+//                } catch (FileNotFoundException e) {
+//                    throw new RuntimeException(e);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            });
         }
 
     }

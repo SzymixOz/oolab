@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -43,13 +44,14 @@ public class App extends Application {
         gridPane.setGridLinesVisible(true);
         gridPane.setHgap(0);
         gridPane.setVgap(0);
-        int cellWidth = 30;
-        int cellHeight = 30;
+        int cellWidth = 40;
+        int cellHeight = 40;
 
         int minY = this.map.getLowerLeftDrawLimit().y;
         int minX = this.map.getLowerLeftDrawLimit().x;
         int maxY = this.map.getUpperRightDrawLimit().y;
         int maxX = this.map.getUpperRightDrawLimit().x;
+
 
         Label xyLabel = new Label("y\\x");
         GridPane.setHalignment(xyLabel, HPos.CENTER);
@@ -76,13 +78,15 @@ public class App extends Application {
                     continue;
                 }
 
-                Object worldMapElement = this.map.objectAt(position);
-                Label label4 = new Label(worldMapElement.toString());
-                GridPane.setHalignment(label4, HPos.CENTER);
-                gridPane.add(label4, position.x - minX + 1, maxY - position.y + 1, 1, 1);
+                IMapElement worldMapElement = (IMapElement) this.map.objectAt(position);
+                GuiElementBox guiElementBox = new GuiElementBox(worldMapElement);
+                VBox graphicalElement = guiElementBox.getGraphicalElement();
+
+                GridPane.setHalignment(graphicalElement, HPos.CENTER);
+                gridPane.add(graphicalElement, position.x - minX + 1, maxY - position.y + 1, 1, 1);
             }
         }
-        Scene scene = new Scene(gridPane, 400, 400);
+        Scene scene = new Scene(gridPane, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
